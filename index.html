@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>CleverTap Integration - Harshitha</title>
+<title>CleverTap GTM Integration</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -9,12 +9,20 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 </style>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M46P96R');</script>
+<!-- End Google Tag Manager -->
+
 <script type="text/javascript">
-     var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
+     var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[], token: "TEST-630-5c2"};
  // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
-clevertap.account.push({"id": "TEST-Z44-565-K66Z"});
+clevertap.account.push({"id": "R95-WK6-KR7Z"});
 clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
-clevertap.privacy.push({useIP: true}); //set the flag to true, if the user agrees to share their IP data
+clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
  (function () {
          var wzrk = document.createElement('script');
          wzrk.type = 'text/javascript';
@@ -26,62 +34,104 @@ clevertap.privacy.push({useIP: true}); //set the flag to true, if the user agree
   })();
 </script>
 <link rel="manifest" href="/manifest.json">
+
+<script>window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'Homepageviewed',
+            'pageCategory': 'Homepage'
+        });
+</script>
 </head>
 
 
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M46P96R"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <h1>CleverTap Web SDK Integration</h1>
-<button onclick="pushEvent()">Signup</button>
-<button onclick="update()">update</button>
-<button onclick="webPush()">webPush</button>
+<button onclick="addKeys()">Add Keys</button>
+<button onclick="removeKeys()">Remove Keys</button>
+<button onclick="removeKeyProperty()">Remove Key Prop</button>
+
+
 <Script>
-function pushEvent()
+
+function addKeys()
+{
+
+ window.dataLayer.push({
+                'event': 'addKeys',
+                'buttonName': 'Add Keys'
+            });
+        console.log('Button click tracked:', {
+                event: 'addKeys',
+                buttonName: 'Add Keys'
+            });
+/*
+var value = ['p_1'];
+clevertap.setMultiValuesForKey('Productids', value);
+clevertap.handleIncrementValue('cartItems', 1);
+console.log("Added Product"+value+"and cartItems");
+*/
+
+}
+
+function removeKeys()
+{
+    window.dataLayer.push({
+                'event': 'removeKeys',
+                'buttonName': 'Remove Keys'
+            });
+        console.log('Button click tracked:', {
+                event: 'removeKeys',
+                buttonName: 'Remove Keys'
+            });
+
+/*var value = ['p_1'];
+clevertap.removeMultiValuesForKey('Productids', value);
+clevertap.handleDecrementValue('cartItems', 1)
+console.log("Removed Product"+value+"and cartItems");*/
+}
+
+function removeKeyProperty() {
+    window.dataLayer.push({
+                'event': 'removeKeyProperty',
+                'buttonName': 'Remove Key Prop'
+            });
+        console.log('Button click tracked:', {
+                event: 'removeKeyProperty',
+                buttonName: 'Remove Keys'
+            });
+   /* clevertap.removeValueForKey("Productids");
+    clevertap.removeValueForKey("cartItems");
+    console.log("Removed Pkey and cartItems from CleverTap profile");*/
+}
+
+
+/*function GTMfunction()
  {
-     alert("Profile created");
-     clevertap.event.push("Profile Created", 
-     {
-    "Name": "Harshitha",
-    "Email": "tstharsh@gmail.com",
-});
-
-
-   clevertap.onUserLogin.push({
-"Site": {
-     "Gender": "Harshitha",
-     "Email": "tstharsh@gmail.com",
-     "Identity":2
-    }
-});
-}
-
-function update()
-{
-    alert("Profile updated");
-    clevertap.event.push("Profile updated");
-    clevertap.profile.push({
-    "Site": {
-         "Birth date": "02/08/1996"
-        }
-});
-
-}
-
-function webPush()
-{
-    alert("web push popup");
-    clevertap.notifications.push({
-  "apnsWebPushId":"<apple web push id>", //only for safari browser
-  "apnsWebPushServiceUrl":"<safari package service url>",//only for safari browser
-  "titleText":'Would you like to receive Push Notifications?',
-  "bodyText":'We promise to only send you relevant content and give you updates on your transactions',
-  "okButtonText":'Sign me up!',
-  "rejectButtonText":'No thanks',
-  "okButtonColor":'#f28046',
-  "serviceWorkerPath":"/clevertap_sw.js"
-});
+    console.log("Checking CleverTap availability:", typeof clevertap);
     
-}
+    function removeKeyProperty() 
+    {
+        if (typeof clevertap !== 'undefined' && clevertap.profile) 
+        {
+            clevertap.removeValueForKey("Productids");
+            clevertap.removeValueForKey("cartItems");
+            //clevertap.profile.removeValueForKey("Productids");
+            console.log("Removed Pkey and cartItems from CleverTap profile");
+
+        } else 
+        {
+            console.error("CleverTap SDK is not loaded");
+        }
+    }
+
+    removeKeyProperty();
+}*/
+
 
 </script>
 </body>
